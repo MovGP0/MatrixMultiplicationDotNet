@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="SolutionItems">
+    <File Path="LICENSE" />
+    <File Path="Readme.md" />
+  </Folder>
+  <Project Path="MatrixMultiplication\MatrixMultiplication.csproj" Type="Classic C#" />
+</Solution>
