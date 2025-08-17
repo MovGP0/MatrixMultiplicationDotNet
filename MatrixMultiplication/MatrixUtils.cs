@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-
-namespace MatrixMultiplication;
+﻿namespace MatrixMultiplication;
 
 public static partial class MatrixUtils
 {
@@ -60,7 +58,7 @@ public static partial class MatrixUtils
         if (A.RowCount != n || A.ColumnCount != m)
             throw new ArgumentException($"Matrix A must be {n}x{m} but was {A.RowCount}x{A.ColumnCount}.");
 
-        if (B.RowCount != n || B.ColumnCount != p)
+        if (B.RowCount != m || B.ColumnCount != p)
             throw new ArgumentException($"Matrix B must be {m}x{p} but was {B.RowCount}x{B.ColumnCount}.");
 
         var C = CreateDenseMatrix(n, p);
@@ -124,5 +122,17 @@ public static partial class MatrixUtils
                 return false;
 
         return true;
+    }
+
+    public static void ValidateTermDims(
+        Matrix<double> A, Matrix<double> B, Matrix<double> C,
+        int n, int m, int p, string termName)
+    {
+        if (A.RowCount != n || A.ColumnCount != m)
+            throw new ArgumentException($"{termName}.CoeffsA must be {n}x{m} but was {A.RowCount}x{A.ColumnCount}.");
+        if (B.RowCount != m || B.ColumnCount != p)
+            throw new ArgumentException($"{termName}.CoeffsB must be {m}x{p} but was {B.RowCount}x{B.ColumnCount}.");
+        if (C.RowCount != n || C.ColumnCount != p)
+            throw new ArgumentException($"{termName}.CoeffsC must be {n}x{p} but was {C.RowCount}x{C.ColumnCount}.");
     }
 }

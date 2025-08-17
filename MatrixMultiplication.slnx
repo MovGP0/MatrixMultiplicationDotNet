@@ -3,5 +3,6 @@
     <File Path="LICENSE" />
     <File Path="Readme.md" />
   </Folder>
+  <Project Path="MatrixMultiplication.Tests\MatrixMultiplication.Tests.csproj" Type="Classic C#" />
   <Project Path="MatrixMultiplication\MatrixMultiplication.csproj" Type="Classic C#" />
 </Solution>

@@ -20,7 +20,7 @@ public static partial class MatrixUtils
         if (A.RowCount != n || A.ColumnCount != m)
             throw new ArgumentException($"Matrix A must be {n}x{m} but was {A.RowCount}x{A.ColumnCount}.");
 
-        if (B.RowCount != n || B.ColumnCount != p)
+        if (B.RowCount != m || B.ColumnCount != p)
             throw new ArgumentException($"Matrix B must be {m}x{p} but was {B.RowCount}x{B.ColumnCount}.");
 
         var C = CreateComplexDenseMatrix(n, p);

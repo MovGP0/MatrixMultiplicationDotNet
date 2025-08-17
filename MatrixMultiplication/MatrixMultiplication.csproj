@@ -7,13 +7,25 @@
     </PropertyGroup>
     <ItemGroup>
         <Using Include="MathNet.Numerics.LinearAlgebra" />
+        <Using Include="OneOf" />
+        <Using Include="OneOf.Types" />
     </ItemGroup>
     <ItemGroup>
       <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
+      <PackageReference Include="OneOf" Version="3.0.271" />
     </ItemGroup>
     <ItemGroup>
       <None Update="Decompositions\*.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Remove="*.DotSettings" />
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Update="MatrixUtils.Complex.cs">
+        <DependentUpon>MatrixUtils.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Utils\" />
     </ItemGroup>
 </Project>
