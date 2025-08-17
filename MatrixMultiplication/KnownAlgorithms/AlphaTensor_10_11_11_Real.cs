@@ -1,6 +1,5 @@
 // Auto-generated AlphaTensor factorization method for (10,11,11).
 
-using MatrixMultiplication;
 namespace MatrixMultiplication.KnownAlgorithms;
 
 public static partial class AlphaTensorFormulaBuilder

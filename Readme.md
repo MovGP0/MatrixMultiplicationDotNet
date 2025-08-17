@@ -9,16 +9,121 @@ Example implementations for matrix multiplication algorithms in .NET
 
 ## Implemented Algorithms
 
-- ✅ 2×2 Matrices – Strassen’s Algorithm
-- ✅ 3×3 Matrices – Laderman’s Algorithm
-- ✅ 4×4 Matrices – AlphaTensor
-- ✅ 5×5 Matrices – AlphaTensor
+**Strassen’s Algorithm**
+- ✅ 2×2×2 Matrices
+
+**Laderman’s Algorithm**
+- ✅ 3×3×3 Matrices
+
+**AlphaTensor**
+- ✅ 2×2×2
+- ✅ 2×2×3
+- ✅ 2×2×4
+- ✅ 2×2×5
+- ✅ 2×2×6
+- ✅ 2×2×7
+- ✅ 2×2×8
+- ✅ 2×3×3
+- ✅ 2×3×4
+- ✅ 2×3×5
+- ✅ 2×4×4
+- ✅ 2×4×5
+- ✅ 2×5×5
+- ✅ 3×3×3
+- ✅ 3×3×4
+- ✅ 3×3×5
+- ✅ 3×4×4
+- ✅ 3×4×5
+- ✅ 3×4×11
+- ✅ 3×5×5
+- ✅ 3×5×9
+- ✅ 3×9×11
+- ✅ 4×4×4
+- ✅ 4×4×5
+- ✅ 4×5×5
+- ✅ 4×5×9
+- ✅ 4×5×10
+- ✅ 4×5×11
+- ✅ 4×9×10
+- ✅ 4×9×11
+- ✅ 4×11×11
+- ✅ 4×11×12
+- ✅ 5×5×5
+- ✅ 5×5×7
+- ✅ 5×7×9
+- ✅ 5×7×10
+- ✅ 5×7×11
+- ✅ 5×8×9
+- ✅ 5×8×10
+- ✅ 5×8×11
+- ✅ 5×9×9
+- ✅ 5×9×10
+- ✅ 5×9×11
+- ✅ 5×9×12
+- ✅ 6×7×9
+- ✅ 6×7×10
+- ✅ 6×7×11
+- ✅ 6×8×10
+- ✅ 6×8×11
+- ✅ 6×9×9
+- ✅ 6×9×10
+- ✅ 6×9×11
+- ✅ 7×7×9
+- ✅ 7×7×10
+- ✅ 7×7×11
+- ✅ 7×8×9
+- ✅ 7×8×10
+- ✅ 7×8×11
+- ✅ 7×8×12
+- ✅ 7×9×9
+- ✅ 7×9×10
+- ✅ 7×9×11
+- ✅ 7×9×12
+- ✅ 7×10×10
+- ✅ 7×10×11
+- ✅ 7×11×11
+- ✅ 8×8×10
+- ✅ 8×8×11
+- ✅ 8×9×10
+- ✅ 8×9×11
+- ✅ 8×9×12
+- ✅ 8×10×10
+- ✅ 8×10×11
+- ✅ 8×10×12
+- ✅ 8×11×11
+- ✅ 8×11×12
+- ✅ 9×9×9
+- ✅ 9×9×10
+- ✅ 9×9×11
+- ✅ 9×10×10
+- ✅ 9×10×11
+- ✅ 9×10×12
+- ✅ 9×11×11
+- ✅ 9×11×12
+- ✅ 10×10×10
+- ✅ 10×10×11
+- ✅ 10×10×12
+- ✅ 10×11×11
+- ✅ 10×11×12
+- ✅ 10×12×12
+- ✅ 11×11×11
+- ✅ 11×11×12
+- ✅ 11×12×12
+- General Matrix Multiplication (GeMM) of arbitrary matrices using the AlphaTensor algorithms.
+
+**Reference Decompositions**
+- ✅ 4×5×7
+- ✅ 4×6×6
+- ✅ 4×6×7
+- ✅ 4×7×7
+- ✅ 5×5×6
+- ✅ 5×5×7
 
 ## TODO: general
 
-- Implement unit tests for all algorithms.
-- Implement benchmarking for all algorithms.
-- Implement multiplication of larger matrices using the implemented algorithms.
+- ⚠️ Code Cleanup
+- ⚠️ Add support for reference decompositions to GeMM implementation.
+- 💡 Implement benchmarking for all algorithms.
 
 ## TODO: file formats
 
@@ -26,22 +131,3 @@ Example implementations for matrix multiplication algorithms in .NET
 - Add support for the **pickle** file format using [Pickle](https://github.com/irmen/pickle)
 - Convert the json files to a more efficient binary format.
 - Render the matrices as human-readable math formulas for verification.
-
-## TODO: algorithms
-
-#### Rectangular Matrices – AlphaTensor Discoveries
-
-* **Implementations:** Various improved algorithms for rectangular matrices (e.g., 3×4 × 4×5) are included in [DeepMind's AlphaTensor GitHub Repository](https://github.com/google-deepmind/alphatensor).
-
-#### Other Algorithms
-
-- TODO
-
-### Further Notes
-
-- Some Algorithms may be able to multiply sub-matrices in order to speed up the multiplication of larger matrices.
-
-[1]: https://www.programmersought.com/article/48127613157/ "C++ implementation of Strassen matrix multiplication - Programmer Sought"
-[2]: https://github.com/OsmanMalik/random-approximate-matrix-multiplication/blob/master/mat_mult_laderman.m "random-approximate-matrix-multiplication/mat_mult_laderman.m at ..."
-[3]: https://github.com/google-deepmind/alphatensor "google-deepmind/alphatensor - GitHub"
-[4]: https://github.com/PhialsBasement/AlphaEvolve-MatrixMul-Verification "PhialsBasement/AlphaEvolve-MatrixMul-Verification - GitHub"

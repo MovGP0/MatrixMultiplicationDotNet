@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Text.Json;
 
-namespace MatrixMultiplication;
+namespace MatrixMultiplication.KnownAlgorithms;
 
 public static class FormulaLoader
 {
