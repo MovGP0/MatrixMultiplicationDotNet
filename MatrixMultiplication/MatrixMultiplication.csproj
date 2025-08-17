@@ -1,31 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
-        <Nullable>enable</Nullable>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <LangVersion>latest</LangVersion>
-    </PropertyGroup>
-    <ItemGroup>
-        <Using Include="MathNet.Numerics.LinearAlgebra" />
-        <Using Include="OneOf" />
-        <Using Include="OneOf.Types" />
-    </ItemGroup>
-    <ItemGroup>
-      <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
-      <PackageReference Include="OneOf" Version="3.0.271" />
-    </ItemGroup>
-    <ItemGroup>
-      <None Update="Decompositions\*.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Remove="*.DotSettings" />
-    </ItemGroup>
-    <ItemGroup>
-      <Compile Update="MatrixUtils.Complex.cs">
-        <DependentUpon>MatrixUtils.cs</DependentUpon>
-      </Compile>
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Utils\" />
-    </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Using Include="MathNet.Numerics.LinearAlgebra" />
+    <Using Include="OneOf" />
+    <Using Include="OneOf.Types" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
+    <PackageReference Include="OneOf" Version="3.0.271" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Decompositions\*.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Remove="*.DotSettings" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="MatrixUtils.Complex.cs">
+      <DependentUpon>MatrixUtils.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EditorConfigFiles Remove="KnownAlgorithms\.editorconfig" />
+  </ItemGroup>
 </Project>

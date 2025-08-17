@@ -2,6 +2,7 @@
   <Folder Name="SolutionItems">
     <File Path="LICENSE" />
     <File Path="Readme.md" />
+    <File Path=".editorconfig" />
   </Folder>
   <Project Path="MatrixMultiplication.Tests\MatrixMultiplication.Tests.csproj" Type="Classic C#" />
   <Project Path="MatrixMultiplication\MatrixMultiplication.csproj" Type="Classic C#" />

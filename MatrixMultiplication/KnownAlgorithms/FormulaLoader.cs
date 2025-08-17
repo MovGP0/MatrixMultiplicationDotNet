@@ -1,10 +1,40 @@
+using System.Globalization;
 using System.Text.Json;
 
 namespace MatrixMultiplication;
 
 public static class FormulaLoader
 {
-    public static OneOf<Formula, ComplexFormula> LoadRealFormulaFromJson(string jsonPath, int n, int m, int p)
+    public static IEnumerable<Formula> LoadFormulas()
+    {
+        var directory = Path.Combine(AppContext.BaseDirectory, "Decompositions");
+        var shapes = new[]
+        {
+            (4, 5, 7),
+            (4, 6, 6),
+            (4, 6, 7),
+            (4, 7, 7.1),
+            (4, 7, 7.2),
+            (5, 5, 6.1),
+            (5, 5, 6.2),
+            (5, 5, 7.1),
+            (5, 5, 7.2),
+            (5, 5, 7.3),
+            (5, 5, 7.4),
+            (5, 5, 7.5),
+            (5, 5, 7.6),
+            (5, 5, 7.7),
+        };
+
+        foreach ((int m, int n, double p) in shapes)
+        {
+            var fileName = $"{m}{n}{p.ToString("0.#", CultureInfo.InvariantCulture)}.json";
+            var filePath = Path.Combine(directory, fileName);
+            yield return LoadRealFormulaFromJson(filePath, m, n, (int)p);
+        }
+    }
+
+    public static Formula LoadRealFormulaFromJson(string jsonPath, int n, int m, int p)
     {
         if (jsonPath.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
             return LoadRealFormulaFromJson_NonTransposed(jsonPath, n, m, p);

@@ -47,6 +47,57 @@ public static partial class MatrixUtils
         return C;
     }
 
+    public static double[,] NaiveMultiply(double[,] A, double[,] B)
+    {
+        int n = A.GetLength(0);
+        int m = A.GetLength(1);
+        int p = B.GetLength(1);
+
+        var C = new double[n, p];
+        for (int i = 0; i < n; i++)
+        for (int k = 0; k < p; k++)
+        {
+            double sum = 0;
+            for (int j = 0; j < m; j++)
+            {
+                sum += A[i, j] * B[j, k];
+            }
+
+            C[i, k] = sum;
+        }
+
+        return C;
+    }
+
+    public static double[,] MultiplyWithFormula(double[,] X, double[,] Y, Formula f)
+    {
+        int n = X.GetLength(0), m = X.GetLength(1), p = Y.GetLength(1);
+        var C = new double[n, p];
+
+        foreach (var term in f.Terms) // assumes ProductTerm exposes A,B,C as MathNet matrices
+        {
+            // α_t = <A_t, X>  (Frobenius inner product)
+            double alpha = 0;
+            for (int i = 0; i < n; i++)
+            for (int j = 0; j < m; j++)
+                alpha += term.CoeffsA[i, j] * X[i, j];
+
+            // β_t = <B_t, Y>
+            double beta = 0;
+            for (int j = 0; j < m; j++)
+            for (int k = 0; k < p; k++)
+                beta += term.CoeffsB[j, k] * Y[j, k];
+
+            // C += α_t * β_t * C_t
+            double ab = alpha * beta;
+            for (int i = 0; i < n; i++)
+            for (int k = 0; k < p; k++)
+                C[i, k] += ab * term.CoeffsC[i, k];
+        }
+
+        return C;
+    }
+
     public static Matrix<double> MultiplyWithFormula(
         Matrix<double> A,
         Matrix<double> B,
