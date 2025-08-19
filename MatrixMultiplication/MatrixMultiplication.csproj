@@ -21,11 +21,6 @@
     <None Remove="*.DotSettings" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="MatrixUtils.Complex.cs">
-      <DependentUpon>MatrixUtils.cs</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <EditorConfigFiles Remove="KnownAlgorithms\.editorconfig" />
   </ItemGroup>
 </Project>
