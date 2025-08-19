@@ -2,7 +2,7 @@ using MatrixMultiplication.KnownAlgorithms;
 
 namespace MatrixMultiplication.Utils;
 
-public static partial class FormulaLocator
+public static class FormulaLocator
 {
     /// <summary>
     /// Returns all supported (n, m, p) triples for which factorizations exist.
@@ -104,6 +104,11 @@ public static partial class FormulaLocator
             (11,11,11),
             (11,11,12),
             (11,12,12),
+            (4,5,7),
+            (4,6,6),
+            (4,6,7),
+            (4,7,7),
+            (5,5,6)
         };
     }
 
@@ -207,6 +212,11 @@ public static partial class FormulaLocator
             (11,11,11) => AlphaTensor_11x11x11.Build11x11x11Formula_Real(),
             (11,11,12) => AlphaTensor_11x11x12.Build11x11x12Formula_Real(),
             (11,12,12) => AlphaTensor_11x12x12.Build11x12x12Formula_Real(),
+            (4,5,7) => Decomposition_4x5x7.Build4x5x7Formula(),
+            (4,6,6) => Decomposition_4x6x6.Build4x6x6Formula(),
+            (4,6,7) => Decomposition_4x6x7.Build4x6x7Formula(),
+            (4,7,7) => Decomposition_4x7x7.Build4x7x7Formula(),
+            (5,5,6) => Decomposition_5x5x6.Build5x5x6Formula(),
             _ => throw new NotSupportedException($"No factorization available for (n,m,p)=({n},{m},{p}).")
         };
     }

@@ -1,9 +1,9 @@
+using MatrixMultiplication.KnownAlgorithms;
+
 namespace MatrixMultiplication.Utils;
 
-public static partial class FormulaLocator
+public static class FormulaMetadata
 {
-    internal readonly record struct AlgoMeta(int n, int m, int p, int R, int NnzU, int NnzV, int NnzW);
-
     internal static readonly AlgoMeta[] RealMetas =
     [
         new(2, 2, 2, 7, 14, 14, 12),
@@ -98,6 +98,139 @@ public static partial class FormulaLocator
         new(10, 12, 12, 928, 13054, 10506, 8772),
         new(11, 11, 11, 896, 13206, 9097, 13110),
         new(11, 11, 12, 941, 10180, 15456, 15876),
-        new(11, 12, 12, 990, 19200, 18768, 12288)
+        new(11, 12, 12, 990, 19200, 18768, 12288),
+        Decomposition_4x5x7.Build4x5x7Metadata(),
+        Decomposition_4x6x6.Build4x6x6Metadata(),
+        Decomposition_4x6x7.Build4x6x7Metadata(),
+        Decomposition_4x7x7.Build4x7x7Metadata(),
+        Decomposition_5x5x6.Build5x5x6Metadata()
     ];
+
+    /// <summary>
+    /// Count predicate for real values (treats ±0 as zero; optional tolerance).
+    /// </summary>
+    private static bool IsNonZero(double x, double eps) =>
+        !double.IsNaN(x) && !double.IsInfinity(x) && Math.Abs(x) > eps;
+
+    /// <summary>
+    /// Count predicate for complex values (magnitude with optional tolerance).
+    /// </summary>
+    private static bool IsNonZero(System.Numerics.Complex z, double eps) =>
+        !double.IsNaN(z.Real) && !double.IsNaN(z.Imaginary) &&
+        !double.IsInfinity(z.Real) && !double.IsInfinity(z.Imaginary) &&
+        z.Magnitude > eps;
+
+    /// <summary>
+    /// From a dense real-valued Formula (ProductTerm).
+    /// </summary>
+    public static AlgoMeta FromFormula(Formula f, double eps = 0.0)
+    {
+        // n, m, p
+        int n = f.N, m = f.M, p = f.P;
+
+        int r = 0, nnzU = 0, nnzV = 0, nnzW = 0;
+
+        foreach (var t in f.Terms)
+        {
+            r++;
+
+            // A is n×m, B is m×p, C is n×p
+            var a = t.CoeffsA;
+            var b = t.CoeffsB;
+            var c = t.CoeffsC;
+
+            // Count non-zeros with optional tolerance
+            nnzU += CountNonZeros(a, eps);
+            nnzV += CountNonZeros(b, eps);
+            nnzW += CountNonZeros(c, eps);
+        }
+
+        return new AlgoMeta(n, m, p, r, nnzU, nnzV, nnzW);
+    }
+
+    /// <summary>
+    /// From a dense complex-valued ComplexFormula (ComplexProductTerm).
+    /// </summary>
+    public static AlgoMeta FromComplexFormula(ComplexFormula f, double eps = 0.0)
+    {
+        int n = f.N, m = f.M, p = f.P;
+
+        int r = 0, nnzU = 0, nnzV = 0, nnzW = 0;
+
+        foreach (var t in f.Terms)
+        {
+            r++;
+
+            nnzU += CountNonZeros(t.CoeffsA, eps);
+            nnzV += CountNonZeros(t.CoeffsB, eps);
+            nnzW += CountNonZeros(t.CoeffsC, eps);
+        }
+
+        return new AlgoMeta(n, m, p, r, nnzU, nnzV, nnzW);
+    }
+
+    /// <summary>
+    /// From a compiled (sparse) representation. Arrays are assumed to list only non-zeros,
+    /// but we still filter by tolerance to be robust.
+    /// </summary>
+    public static AlgoMeta FromCompiled(CompiledFormula cf, double eps = 0.0)
+    {
+        int n = cf.N, m = cf.M, p = cf.P;
+
+        int r = cf.Terms?.Length ?? 0;
+        int nnzU = 0, nnzV = 0, nnzW = 0;
+
+        if (cf.Terms != null)
+        {
+            foreach (var t in cf.Terms)
+            {
+                if (t?.A != null) nnzU += CountNonZeros(t.A, eps);
+                if (t?.B != null) nnzV += CountNonZeros(t.B, eps);
+                if (t?.C != null) nnzW += CountNonZeros(t.C, eps);
+            }
+        }
+
+        return new AlgoMeta(n, m, p, r, nnzU, nnzV, nnzW);
+    }
+
+    private static int CountNonZeros(Matrix<double> M, double eps)
+    {
+        int cnt = 0;
+        for (int i = 0; i < M.RowCount; i++)
+        for (int j = 0; j < M.ColumnCount; j++)
+        {
+            if (IsNonZero(M[i, j], eps))
+            {
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+
+    private static int CountNonZeros(Matrix<System.Numerics.Complex> M, double eps)
+    {
+        int cnt = 0;
+        for (int i = 0; i < M.RowCount; i++)
+        for (int j = 0; j < M.ColumnCount; j++)
+        {
+            if (IsNonZero(M[i, j], eps))
+            {
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+
+    private static int CountNonZeros((int a, int b, double c)[] entries, double eps)
+    {
+        int cnt = 0;
+        for (int k = 0; k < entries.Length; k++)
+        {
+            if (IsNonZero(entries[k].c, eps))
+            {
+                cnt++;
+            }
+        }
+        return cnt;
+    }
 }

@@ -1,11 +1,12 @@
 ﻿using System.Globalization;
 using MatrixMultiplication.Utils;
+using Xunit.Abstractions;
 
 namespace MatrixMultiplication.Tests.Utils;
 
 public static class FormulaLoaderTests
 {
-    public sealed class LoadRealFormulaFromJsonTests
+    public sealed class LoadRealFormulaFromJsonTests(ITestOutputHelper output)
     {
         [Theory]
         [InlineData(4,5,7)]
@@ -51,6 +52,11 @@ public static class FormulaLoaderTests
             var expected = MatrixUtils.NaiveMultiply(X, Y); // double[,]
             var actual = MatrixUtils.MultiplyWithFormula(X, Y, real); // double[,]
             AssertEqual(expected, actual, tol);
+
+            output.WriteLine("=== CODE ===");
+            output.WriteLine(real.ToCode());
+            output.WriteLine("=== METADATA ===");
+            output.WriteLine(FormulaMetadata.FromFormula(real).ToString());
         }
 
         static void FillRandomInt(double[,] a, int min, int max, Random rng)

@@ -304,7 +304,7 @@ public static class BlockedGeneralMatrixMultiplication
     private static (int n,int m,int p)? ChooseBestTriple(int N, int M, int P)
     {
         // Filter by fit, then sort by efficiency = R / (n*p), then by coverage (n*p) descending
-        var candidates = Utils.FormulaLocator.RealMetas
+        var candidates = FormulaMetadata.RealMetas
             .Where(t => t.n <= N && t.m <= M && t.p <= P)
             .OrderBy(t => (double)t.R / (t.n * t.p))
             .ThenByDescending(t => t.n * t.p)
